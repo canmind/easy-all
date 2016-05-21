@@ -9,7 +9,7 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.bval.jsr.ApacheValidationProvider;
 
-public class TestValidation {
+public class ValidationTest {
 	public static void main(String[] args) {
 		User user = new User();
 		ValidatorFactory avf = Validation
