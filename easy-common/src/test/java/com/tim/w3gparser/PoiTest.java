@@ -18,10 +18,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class PoiTest {
-	private static String[] weeks = { "ĞÇÆÚÒ»", "ĞÇÆÚ¶ş", "ĞÇÆÚÈı", "ĞÇÆÚËÄ", "ĞÇÆÚÎå", "ĞÇÆÚÁù",
-			"ĞÇÆÚÈÕ" };
-
-	public static void main(String args[]) {
+	private static String[] weeks = {"æ˜ŸæœŸä¸€","æ˜ŸæœŸäºŒ","æ˜ŸæœŸä¸‰","æ˜ŸæœŸå››","æ˜ŸæœŸäº”","æ˜ŸæœŸå…­","æ˜ŸæœŸæ—¥"};
+	public static void main(String args[]){
 		try {
 			getData();
 		} catch (IOException e) {
@@ -29,11 +27,10 @@ public class PoiTest {
 			e.printStackTrace();
 		}
 	}
-
-	private static void getData() throws IOException {
-		readExcel2007("C:\\Users\\haifeng.chf\\Desktop\\400ÅÅ°à4ÔÂ.xlsx");
-
-	}
+	private static void getData() throws IOException{
+	    readExcel2007("C:\\Users\\haifeng.chf\\Desktop\\400æ’ç­4æœˆ.xlsx");
+	   
+	} 
 
 	public static int dayForWeek(String pTime) {
 		SimpleDateFormat format = new SimpleDateFormat("MM-dd");
@@ -52,130 +49,122 @@ public class PoiTest {
 		}
 		return dayForWeek;
 	}
+	public static void readExcel2007(String filePath) throws IOException{  
+        FileInputStream fis =null;  
+        try {  
+            fis =new FileInputStream(filePath);  
+            XSSFWorkbook xwb = new XSSFWorkbook(fis);   // æ„é€  XSSFWorkbook å¯¹è±¡ï¼ŒstrPath ä¼ å…¥æ–‡ä»¶è·¯å¾„  
+            XSSFSheet sheet = xwb.getSheetAt(0);            // è¯»å–ç¬¬ä¸€ç« è¡¨æ ¼å†…å®¹  
+            // å®šä¹‰ rowã€cell  
+            XSSFRow row;
+            int start = 4;//
+            int temp = 6;
+            // å¾ªç¯è¾“å‡ºè¡¨æ ¼ä¸­çš„ç¬¬ä¸€è¡Œå†…å®¹   è¡¨å¤´  
+            Map<Integer, String> keys = new HashMap<Integer, String>();  
+            row = sheet.getRow(11);//æ—¥æœŸè¡Œæ•°
+            if(row !=null){  
+                for (int j = start; j <=row.getPhysicalNumberOfCells(); j++) {  
+                    // é€šè¿‡ row.getCell(j).toString() è·å–å•å…ƒæ ¼å†…å®¹
+                	XSSFCell cell = row.getCell(j);
+                    if(cell!=null){  
+                    	 if(cell.getCellType()==XSSFCell.CELL_TYPE_NUMERIC){  
+                             if(DateUtil.isCellDateFormatted(cell)){  
+                                 String cellValue = new DataFormatter().formatRawCellContents(cell.getNumericCellValue(), 0, "MM-dd");
+                                 keys.put(j, cellValue);
+                                 System.out.println(cellValue);
+                             }  
+                           
+                         }  
+                    }
+                }  
+            }  
+            row = sheet.getRow(12); //æ˜ŸæœŸè¡Œæ•° 
+            if(row !=null){  
+                for (int j = start; j <=row.getPhysicalNumberOfCells(); j++) {  
+                    // é€šè¿‡ row.getCell(j).toString() è·å–å•å…ƒæ ¼å†…å®¹ï¼Œ  
+                    if(row.getCell(j)!=null){  
+                        if(!row.getCell(j).toString().isEmpty()&&keys.get(j)!=null){
+                        	keys.put(j, keys.get(j) +";"+ row.getCell(j).toString());
+                        }  
+                    }
+                }  
+            } 
+            //å¾ªç¯è¾“å‡ºè¡¨æ ¼ä¸­çš„ä»ç¬¬äºŒè¡Œå¼€å§‹å†…å®¹  
+            row = sheet.getRow(45);//å®šä½ç”¨æˆ·
+            UserInfo user = new UserInfo();
+            if(row!=null){
+            	//è·å–ç”¨æˆ·åç§°
+            	XSSFCell name = row.getCell(0);
+            	user.setUserName(name.toString());
+            }
+            if(row!=null){
+            	//è·å–ç»„
+            	XSSFCell group = row.getCell(1);
+            	user.setGroup(group.toString());
+            }
+            if(row!=null){
+            	//è·å–å°ç»„
+            	XSSFCell subgroup = row.getCell(2);
+            	user.setSubGroup(subgroup.toString());
+            }
+         
+            List<Order> data = new ArrayList<Order>();
+            if (row != null) {
+            
+                for (int j = start; j <= row.getPhysicalNumberOfCells(); j++) {
+                    XSSFCell cell = row.getCell(j);  
+                    if (cell != null&&keys.get(j)!=null&&cell.getCellType()==XSSFCell.CELL_TYPE_STRING) {
+                    	if(j==temp){
+                    		int begin = dayForWeek(keys.get(j).split(";")[0]);
+                    		if(begin > 1){
+                    			for(int x = 1;x<begin ;x++){
+                    				Order order = new Order();
+                                	order.setDate("");
+                                	order.setWeek("");
+                                	order.setInfo("");
+                                	data.add(order);
+                    			}
+                    		}
+                    	}
+                    	Order order = new Order();
+                    	order.setDate(keys.get(j).split(";")[0]);
+                    	order.setWeek(keys.get(j).split(";")[1]);
+                    	order.setInfo(cell.toString());
+                    	data.add(order);
+                    } 
+                }
+            	
 
-	public static void readExcel2007(String filePath) throws IOException {
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream(filePath);
-			XSSFWorkbook xwb = new XSSFWorkbook(fis); // ¹¹Ôì XSSFWorkbook
-														// ¶ÔÏó£¬strPath ´«ÈëÎÄ¼şÂ·¾¶
-			XSSFSheet sheet = xwb.getSheetAt(0); // ¶ÁÈ¡µÚÒ»ÕÂ±í¸ñÄÚÈİ
-			// ¶¨Òå row¡¢cell
-			XSSFRow row;
-			int start = 4;//
-			int temp = 6;
-			// Ñ­»·Êä³ö±í¸ñÖĞµÄµÚÒ»ĞĞÄÚÈİ ±íÍ·
-			Map<Integer, String> keys = new HashMap<Integer, String>();
-			row = sheet.getRow(11);// ÈÕÆÚĞĞÊı
-			if (row != null) {
-				for (int j = start; j <= row.getPhysicalNumberOfCells(); j++) {
-					// Í¨¹ı row.getCell(j).toString() »ñÈ¡µ¥Ôª¸ñÄÚÈİ
-					XSSFCell cell = row.getCell(j);
-					if (cell != null) {
-						if (cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-							if (DateUtil.isCellDateFormatted(cell)) {
-								String cellValue = new DataFormatter()
-										.formatRawCellContents(
-												cell.getNumericCellValue(), 0,
-												"MM-dd");
-								keys.put(j, cellValue);
-								System.out.println(cellValue);
-							}
+            }
+            String[][] tableData2 = new String[data.size()/7*2+(data.size()%7)*2+1][7];
+            for(int i = 0; i < 7 ; i++) {
+                tableData2[0][i] = weeks[i];
+            }
+            int i = 1 , week = 0 ;
+            for(Order order : data){
+            	System.out.println(i + " "+ week +" " +order.getDate()+" "+tableData2.length + " "+data.size());
 
-						}
-					}
-				}
-			}
-			row = sheet.getRow(12); // ĞÇÆÚĞĞÊı
-			if (row != null) {
-				for (int j = start; j <= row.getPhysicalNumberOfCells(); j++) {
-					// Í¨¹ı row.getCell(j).toString() »ñÈ¡µ¥Ôª¸ñÄÚÈİ£¬
-					if (row.getCell(j) != null) {
-						if (!row.getCell(j).toString().isEmpty()
-								&& keys.get(j) != null) {
-							keys.put(j, keys.get(j) + ";"
-									+ row.getCell(j).toString());
-						}
-					}
-				}
-			}
-			// Ñ­»·Êä³ö±í¸ñÖĞµÄ´ÓµÚ¶şĞĞ¿ªÊ¼ÄÚÈİ
-			row = sheet.getRow(45);// ¶¨Î»ÓÃ»§
-			UserInfo user = new UserInfo();
-			if (row != null) {
-				// »ñÈ¡ÓÃ»§Ãû³Æ
-				XSSFCell name = row.getCell(0);
-				user.setUserName(name.toString());
-			}
-			if (row != null) {
-				// »ñÈ¡×é
-				XSSFCell group = row.getCell(1);
-				user.setGroup(group.toString());
-			}
-			if (row != null) {
-				// »ñÈ¡Ğ¡×é
-				XSSFCell subgroup = row.getCell(2);
-				user.setSubGroup(subgroup.toString());
-			}
-
-			List<Order> data = new ArrayList<Order>();
-			if (row != null) {
-
-				for (int j = start; j <= row.getPhysicalNumberOfCells(); j++) {
-					XSSFCell cell = row.getCell(j);
-					if (cell != null && keys.get(j) != null
-							&& cell.getCellType() == XSSFCell.CELL_TYPE_STRING) {
-						if (j == temp) {
-							int begin = dayForWeek(keys.get(j).split(";")[0]);
-							if (begin > 1) {
-								for (int x = 1; x < begin; x++) {
-									Order order = new Order();
-									order.setDate("");
-									order.setWeek("");
-									order.setInfo("");
-									data.add(order);
-								}
-							}
-						}
-						Order order = new Order();
-						order.setDate(keys.get(j).split(";")[0]);
-						order.setWeek(keys.get(j).split(";")[1]);
-						order.setInfo(cell.toString());
-						data.add(order);
-					}
-				}
-
-			}
-			String[][] tableData2 = new String[data.size() / 7 * 2
-					+ (data.size() % 7) * 2 + 1][7];
-			for (int i = 0; i < 7; i++) {
-				tableData2[0][i] = weeks[i];
-			}
-			int i = 1, week = 0;
-			for (Order order : data) {
-				System.out.println(i + " " + week + " " + order.getDate() + " "
-						+ tableData2.length + " " + data.size());
-
-				tableData2[i][week] = order.getDate();
-				tableData2[i + 1][week] = order.getInfo();
-				week++;
-				if (week > 6) {
-					week = 0;
-					i = i + 2;
-				}
-			}
-			CreateImage cg = new CreateImage();
-			try {
-				cg.myGraphicsGeneration(user, tableData2, "c:\\myPic.jpg");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		} finally {
-			fis.close();
-		}
-
-	}
+            	tableData2[i][week] = order.getDate();
+            	tableData2[i+1][week] = order.getInfo();
+            	week++;
+            	if(week>6){
+            		week = 0;
+            		i = i+2;
+            	}
+            }
+            CreateImage cg = new CreateImage();
+    		try {
+    			cg.myGraphicsGeneration(user,tableData2, "c:\\myPic.jpg");
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+        } catch (IOException e) {
+        	
+            e.printStackTrace();  
+        }finally {  
+            fis.close();  
+        }  
+  
+      
+    }  
 }
