@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+  
+<!DOCTYPE mapper PUBLIC  
+    "-//mybatis.org//DTD Mapper 3.0//EN"  
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+      
+<mapper namespace="common.o2oSalgradeDAO">  
+    <resultMap id="salgrade_base" type="com.o2o.freemarker.po.SalgradePO">  
+          <result property="grade" column="grade" jdbcType="INTEGER" />  
+          <result property="losal" column="losal" jdbcType="INTEGER" />  
+          <result property="hisal" column="hisal" jdbcType="INTEGER" />  
+    </resultMap>  
+</mapper>

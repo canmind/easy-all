@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+	<params>
+		<title value="o2o"></title>
+		<osdir value="D:/git/tim/common/src/main/resources"></osdir>
+		<javapackage value="com.o2o.freemarker"></javapackage>
+		<author value="haifeng.chen"></author>
+		<project value="common.o2o"></project>
+	</params>
+	<dataSource>
+		<driver value="com.mysql.jdbc.Driver"></driver>
+		<url value="jdbc:mysql://localhost:3306/scott?useUnicode=true&amp;characterEncoding=utf-8"></url>
+		<username value="root"></username>
+		<password value="root"></password>
+	</dataSource>
+	<tables>
+		<table value="no"></table>
+		<table value="emp"></table>
+		<table value="dept"></table>
+		<table value="bonus"></table>
+		<table value="salgrade"></table>
+	</tables>
+</config>
