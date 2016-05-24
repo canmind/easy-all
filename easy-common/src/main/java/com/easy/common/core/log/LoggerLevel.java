@@ -1,43 +1,44 @@
 package com.easy.common.core.log;
 
 import com.easy.common.core.util.JavaEnumUtils;
+import com.o2o.framework.core.log.LoggerLevel;
 
 public enum LoggerLevel{
-  DEBUG("DEBUG", "DEBUG级别日志"), INFO("INFO", "INFO级别日志"), WAR("WAR", "WAR级别日志"), ERROR("ERROR", "ERROR级别日志");
+	  DEBUG("DEBUG", "DEBUG绾у埆鏃ュ織"), INFO("INFO", "INFO绾у埆鏃ュ織"), WAR("WAR", "WAR绾у埆鏃ュ織"), ERROR("ERROR", "ERROR绾у埆鏃ュ織");
 
-  private String code;
-  private String description;
+	  private String code;
+	  private String description;
 
-  private LoggerLevel(String code, String description)
-  {
-    this.code = code;
-    this.description = description;
-		JavaEnumUtils.put(getClass().getName() + code, this);
-  }
+	  private LoggerLevel(String code, String description)
+	  {
+	    this.code = code;
+	    this.description = description;
+			JavaEnumUtils.put(getClass().getName() + code, this);
+	  }
 
-  public static LoggerLevel valueByCode(String code)
-  {
-    Object obj = JavaEnumUtils.get(LoggerLevel.class.getName() + code);
-    if (null != obj) {
-      return (LoggerLevel)obj;
-    }
-    return INFO;
-  }
+	  public static LoggerLevel valueByCode(String code)
+	  {
+	    Object obj = JavaEnumUtils.get(LoggerLevel.class.getName() + code);
+	    if (null != obj) {
+	      return (LoggerLevel)obj;
+	    }
+	    return INFO;
+	  }
 
-  public String getCode()
-  {
-    return this.code;
-  }
+	  public String getCode()
+	  {
+	    return this.code;
+	  }
 
-  public void setCode(String code) {
-    this.code = code;
-  }
+	  public void setCode(String code) {
+	    this.code = code;
+	  }
 
-  public String getDescription() {
-    return this.description;
-  }
+	  public String getDescription() {
+	    return this.description;
+	  }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
-}
+	  public void setDescription(String description) {
+	    this.description = description;
+	  }
+	}

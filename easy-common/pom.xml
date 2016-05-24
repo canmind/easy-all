@@ -2,14 +2,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.essy</groupId>
-        <artifactId>essy-parent</artifactId>
+        <groupId>com.easy</groupId>
+        <artifactId>easy-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>essy-common</artifactId>
+    <artifactId>easy-common</artifactId>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
-    <description>The common module of essy project</description>
+    <description>The common module of easy project</description>
     <properties>
         <skip_maven_deploy>true</skip_maven_deploy>
     </properties>
@@ -42,10 +42,6 @@
 		<dependency>
 		    <groupId>commons-lang</groupId>
 		    <artifactId>commons-lang</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
 		</dependency>
 		<dependency>
 		    <groupId>com.alibaba</groupId>
@@ -119,5 +115,9 @@
 	       <groupId>commons-beanutils</groupId>
 	       <artifactId>commons-beanutils</artifactId>
         </dependency>
+        <dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
     </dependencies>
 </project>

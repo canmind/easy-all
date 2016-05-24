@@ -25,11 +25,11 @@ public class DeepClone implements Serializable {
 
 	public Object deepClone() throws IOException, OptionalDataException,
 			ClassNotFoundException {
-		// ½«¶ÔÏóĞ´µ½Á÷Àï
+		// å°†å¯¹è±¡å†™åˆ°æµé‡Œ
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		ObjectOutputStream oos = new ObjectOutputStream(bos);
 		oos.writeObject(this);
-		// ´ÓÁ÷Àï¶Á»ØÀ´
+		// ä»æµé‡Œè¯»å›æ¥
 		ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
 		ObjectInputStream ois = new ObjectInputStream(bis);
 		return ois.readObject();
@@ -37,3 +37,4 @@ public class DeepClone implements Serializable {
 	}
 
 }
+

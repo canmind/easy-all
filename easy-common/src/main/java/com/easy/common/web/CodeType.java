@@ -1,7 +1,9 @@
 package com.easy.common.web;
 
+import com.o2o.framework.web.CodeType;
+
 public enum CodeType {
-	AES("AES", "AES加密类型"), MD5("MD5", "MD5加密类型");
+	AES("AES", "AES鍔犲瘑绫诲瀷"), MD5("MD5", "MD5鍔犲瘑绫诲瀷");
 
 	private String code;
 	private String description;
@@ -9,12 +11,12 @@ public enum CodeType {
 	private CodeType(String code, String description) {
 		this.code = code;
 		this.description = description;
-		com.easy.common.core.util.JavaEnumUtils.put(getClass().getName()
+		com.o2o.framework.core.util.JavaEnumUtils.put(getClass().getName()
 				+ code, this);
 	}
 
 	public static CodeType valueByCode(String code) {
-		Object obj = com.easy.common.core.util.JavaEnumUtils
+		Object obj = com.o2o.framework.core.util.JavaEnumUtils
 				.get(CodeType.class.getName() + code);
 		if (null != obj) {
 			return (CodeType) obj;
@@ -38,3 +40,4 @@ public enum CodeType {
 		this.description = description;
 	}
 }
+

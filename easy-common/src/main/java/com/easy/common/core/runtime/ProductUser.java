@@ -2,23 +2,23 @@ package com.easy.common.core.runtime;
 
 import java.util.Date;
 
-import com.google.gson.annotations.Expose;
+import com.alibaba.fastjson.annotation.JSONField;
 
 public class ProductUser extends BaseModel {
 	private static final long serialVersionUID = 490559999680222434L;
-	@Expose
+	@JSONField(serialize=false)
 	private String logonId;
-	@Expose
+	@JSONField(serialize=false)
 	private String platformId;
-	@Expose
+	@JSONField(serialize=false)
 	private String userId;
-	@Expose
+	@JSONField(serialize=false)
 	private String nickName;
-	@Expose
+	@JSONField(serialize=false)
 	private String userEmail;
-	@Expose
+	@JSONField(serialize=false)
 	private String lastLoginIP;
-	@Expose
+	@JSONField(serialize=false)
 	private Date lastLoginDate;
 	private String[] roles;
 	public String getLogonId() {

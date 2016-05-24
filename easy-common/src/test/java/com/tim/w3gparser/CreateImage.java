@@ -12,35 +12,34 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
 @SuppressWarnings("restriction")
 public class CreateImage {
 	/**
-	 * Éú³ÉÍ¼Æ¬
+	 * ç”Ÿæˆå›¾ç‰‡
 	 * 
 	 * @param cellsValue
-	 *            ÒÔ¶şÎ¬Êı×éĞÎÊ½´æ·Å ±í¸ñÀïÃæµÄÖµ
+	 *            ä»¥äºŒç»´æ•°ç»„å½¢å¼å­˜æ”¾ è¡¨æ ¼é‡Œé¢çš„å€¼
 	 * @param path
-	 *            ÎÄ¼ş±£´æÂ·¾¶
+	 *            æ–‡ä»¶ä¿å­˜è·¯å¾„
 	 */
-	public void myGraphicsGeneration(UserInfo userInfo, String cellsValue[][],
-			String path) {
-		// ×ÖÌå´óĞ¡
+	public void myGraphicsGeneration(UserInfo userInfo,String cellsValue[][], String path) {
+		// å­—ä½“å¤§å°
 		int fontTitileSize = 15;
-		// ºáÏßµÄĞĞÊı
+		// æ¨ªçº¿çš„è¡Œæ•°
 		int totalrow = cellsValue.length + 1;
-		// ÊúÏßµÄĞĞÊı
+		// ç«–çº¿çš„è¡Œæ•°
 		int totalcol = 0;
 		if (cellsValue[0] != null) {
 			totalcol = cellsValue[0].length;
 		}
-		// Í¼Æ¬¿í¶È
+		// å›¾ç‰‡å®½åº¦
 		int imageWidth = 400;
-		// ĞĞ¸ß
+		// è¡Œé«˜
 		int rowheight = 24;
-		// Í¼Æ¬¸ß¶È
+		// å›¾ç‰‡é«˜åº¦
 		int imageHeight = totalrow * rowheight + 50;
-		// ÆğÊ¼¸ß¶È
+		// èµ·å§‹é«˜åº¦
 		int startHeight = 10;
-		// ÆğÊ¼¿í¶È
+		// èµ·å§‹å®½åº¦
 		int startWidth = 10;
-		// µ¥Ôª¸ñ¿í¶È
+		// å•å…ƒæ ¼å®½åº¦
 		int colwidth = (int) ((imageWidth - 12) / totalcol);
 		BufferedImage image = new BufferedImage(imageWidth, imageHeight,
 				BufferedImage.TYPE_INT_RGB);
@@ -49,9 +48,9 @@ public class CreateImage {
 		graphics.fillRect(0, 0, imageWidth, imageHeight);
 		graphics.setColor(Color.GREEN);
 
-		// »­ºáÏß
+		// ç”»æ¨ªçº¿
 		for (int j = 0; j < totalrow; j++) {
-			if (j > 0 && j % 2 == 0) {
+			if(j>0 && j%2==0){
 				continue;
 			}
 			graphics.setColor(Color.black);
@@ -59,60 +58,58 @@ public class CreateImage {
 					startWidth + colwidth * totalcol, startHeight + (j + 1)
 							* rowheight);
 		}
-		// »­ÊúÏß
+		// ç”»ç«–çº¿
 		for (int k = 0; k < totalcol + 1; k++) {
 			graphics.setColor(Color.black);
 			graphics.drawLine(startWidth + k * colwidth, startHeight
 					+ rowheight, startWidth + k * colwidth, startHeight
 					+ rowheight * totalrow);
 		}
-		// ÉèÖÃ×ÖÌå
-		Font font = new Font("Î¢ÈíÑÅºÚ", Font.BOLD, fontTitileSize);
+		// è®¾ç½®å­—ä½“
+		Font font = new Font("å¾®è½¯é›…é»‘", Font.BOLD, fontTitileSize);
 		graphics.setFont(font);
-		// Ğ´±êÌâ
-		// String title =
-		// "»¨Ãû£º"+userInfo.getUserName()+"          ×é±ğ£º"+userInfo.getGroup()+"         Ğ¡×éÃû£º"+userInfo.getSubGroup();
-		// graphics.drawString(title, startWidth, startHeight + rowheight - 10);
-		// Ğ´ÈëÄÚÈİ
+		// å†™æ ‡é¢˜
+		//String title = "èŠ±åï¼š"+userInfo.getUserName()+"          ç»„åˆ«ï¼š"+userInfo.getGroup()+"         å°ç»„åï¼š"+userInfo.getSubGroup();
+		//graphics.drawString(title, startWidth, startHeight + rowheight - 10);
+		// å†™å…¥å†…å®¹
 		for (int n = 0; n < cellsValue.length; n++) {
 			for (int l = 0; l < cellsValue[n].length; l++) {
 				if (n == 0) {
-					font = new Font("Î¢ÈíÑÅºÚ", Font.BOLD, fontTitileSize);
+					font = new Font("å¾®è½¯é›…é»‘", Font.BOLD, fontTitileSize);
 					graphics.setFont(font);
-
+					
 				} else if (n > 0 && l > 0) {
-					font = new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, fontTitileSize);
+					font = new Font("å¾®è½¯é›…é»‘", Font.PLAIN, fontTitileSize);
 					graphics.setFont(font);
-					if (cellsValue[n][l] != null
-							&& cellsValue[n][l].toString().equals("ĞİÏ¢"))
+					if(cellsValue[n][l]!=null&&cellsValue[n][l].toString().equals("ä¼‘æ¯"))
 						graphics.setColor(Color.GREEN);
 					else
 						graphics.setColor(Color.RED);
-
+					
 				} else {
-					font = new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, fontTitileSize);
+					font = new Font("å¾®è½¯é›…é»‘", Font.PLAIN, fontTitileSize);
 					graphics.setFont(font);
 					graphics.setColor(Color.RED);
 				}
-				if (n % 2 == 1) {
+				if(n%2==1){
 					graphics.setColor(Color.GRAY);
 				}
-				graphics.drawString(cellsValue[n][l] == null ? ""
-						: cellsValue[n][l].toString(), startWidth + colwidth
-						* l + 5, startHeight + rowheight * (n + 2) - 10);
+				graphics.drawString(cellsValue[n][l]==null?"":cellsValue[n][l].toString(), startWidth
+						+ colwidth * l + 5, startHeight + rowheight * (n + 2)
+						- 10);
 			}
 		}
-		// ±£´æÍ¼Æ¬
+		// ä¿å­˜å›¾ç‰‡
 		createImage(image, path);
 	}
 
 	/**
-	 * ½«Í¼Æ¬±£´æµ½Ö¸¶¨Î»ÖÃ
+	 * å°†å›¾ç‰‡ä¿å­˜åˆ°æŒ‡å®šä½ç½®
 	 * 
 	 * @param image
-	 *            »º³åÎÄ¼şÀà
+	 *            ç¼“å†²æ–‡ä»¶ç±»
 	 * @param fileLocation
-	 *            ÎÄ¼şÎ»ÖÃ
+	 *            æ–‡ä»¶ä½ç½®
 	 */
 	public void createImage(BufferedImage image, String fileLocation) {
 		try {
@@ -130,22 +127,18 @@ public class CreateImage {
 		CreateImage cg = new CreateImage();
 		try {
 			UserInfo userInfo = new UserInfo();
-			userInfo.setUserName("³õÈı");
-			userInfo.setGroup("Ò»×é");
-			userInfo.setSubGroup("·¹ÍÅÒ»ºÅ");
+			userInfo.setUserName("åˆä¸‰");
+			userInfo.setGroup("ä¸€ç»„");
+			userInfo.setSubGroup("é¥­å›¢ä¸€å·");
 			String[][] tableData2 = {
-					{ "ĞÇÆÚÒ»", "ĞÇÆÚ¶ş", "ĞÇÆÚÈı", "ĞÇÆÚËÄ", "ĞÇÆÚÎå", "ĞÇÆÚÁù", "ĞÇÆÚÈÕ" },
-					{ "12ÔÂ1", "12ÔÂ2", "12ÔÂ3", "12ÔÂ4", "12ÔÂ5", "12ÔÂ6", "12ÔÂ7" },
-					{ "ĞİÏ¢", "Õı³£", "ĞİÏ¢", "33.6%", "33.6%", "33.6%", "33.6%" },
-					{ "469281", "1500000", "31.2%", "33.6%", "33.6%", "33.6%",
-							"33.6%" },
-					{ "469281", "1500000", "31.2%", "33.6%", "33.6%", "33.6%",
-							"33.6%" },
-					{ "469281", "1500000", "31.2%", "33.6%", "33.6%", "33.6%",
-							"33.6%" },
-					{ "469281", "1500000", "31.2%", "33.6%", "33.6%", "33.6%",
-							"33.6%" } };
-			cg.myGraphicsGeneration(userInfo, tableData2, "c:\\myPic.jpg");
+					{ "æ˜ŸæœŸä¸€", "æ˜ŸæœŸäºŒ", "æ˜ŸæœŸä¸‰", "æ˜ŸæœŸå››", "æ˜ŸæœŸäº”", "æ˜ŸæœŸå…­", "æ˜ŸæœŸæ—¥" },
+					{ "12æœˆ1", "12æœˆ2", "12æœˆ3", "12æœˆ4" , "12æœˆ5" , "12æœˆ6" , "12æœˆ7"},
+					{ "ä¼‘æ¯", "æ­£å¸¸", "ä¼‘æ¯", "33.6%", "33.6%" , "33.6%" , "33.6%" },
+					{ "469281", "1500000", "31.2%", "33.6%" , "33.6%" , "33.6%" , "33.6%"},
+					{ "469281", "1500000", "31.2%", "33.6%" , "33.6%" , "33.6%" , "33.6%"},
+					{ "469281", "1500000", "31.2%", "33.6%" , "33.6%" , "33.6%", "33.6%" },
+					{ "469281", "1500000", "31.2%", "33.6%" , "33.6%" , "33.6%", "33.6%" } };
+			cg.myGraphicsGeneration(userInfo,tableData2, "c:\\myPic.jpg");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

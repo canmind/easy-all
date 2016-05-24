@@ -6,7 +6,7 @@ package com.easy.common.core.builder.freemarker;
  */
 public class StringUtil {
 	/** 
-     * 首字母大�? 
+     * 首字母大写 
      * @param str 
      * @return 
      */  
@@ -19,7 +19,7 @@ public class StringUtil {
         return Character.toTitleCase(str.charAt(0)) + str.substring(1);  
     }  
     /** 
-     * 将表中列名去下划线且下划线后首字母大写其他字母小�? 
+     * 将表中列名去下划线且下划线后首字母大写其他字母小写 
      * @param columnName 表中列名 
      * @return java类属性名 
      */  
@@ -44,7 +44,7 @@ public class StringUtil {
     }  
     /** 
      * 将数据库类型转换成java类型 
-     * @param columnType 数据库类�? 
+     * @param columnType 数据库类型 
      * @return java类型 
      */  
     public static String dbTypeToJavaType(String columnType) {  
@@ -78,7 +78,7 @@ public class StringUtil {
     }  
     /** 
      * 将数据库类型转换成mybatis配置文件类型 
-     * @param sqlTypeName 数据库类�? 
+     * @param sqlTypeName 数据库类型 
      * @return mybatis配置文件类型 
      */  
     public static String mybatisType(String sqlTypeName){  

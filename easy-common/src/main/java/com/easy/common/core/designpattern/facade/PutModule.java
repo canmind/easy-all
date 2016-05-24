@@ -1,8 +1,8 @@
 package com.easy.common.core.designpattern.facade;
 
 public class PutModule {
-    //Ê¾Òâ·½·¨
+    //ç¤ºæ„æ–¹æ³•
     public void put(){
-        System.out.println("¶ËÉÏÀ´");
+        System.out.println("ç«¯ä¸Šæ¥");
     }
 }

@@ -9,6 +9,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.o2o.framework.core.builder.freemarker.DBUtil;
+import com.o2o.framework.core.builder.freemarker.FreemarkerUtil;
+import com.o2o.framework.core.builder.freemarker.StringUtil;
+
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -21,7 +25,7 @@ import freemarker.template.TemplateExceptionHandler;
  */
 public class FreemarkerUtil {
 	   /** 
-     * 获取表中列并转换成java属�?? 
+     * 获取表中列并转换成java属性 
      * @param tableName 表名 
      * @return list 
      */  
@@ -34,7 +38,7 @@ public class FreemarkerUtil {
         return retCol;  
     }  
     /** 
-     * 获取表中�? 
+     * 获取表中列 
      * @param tableName 表名 
      * @return list 
      */  
@@ -47,9 +51,9 @@ public class FreemarkerUtil {
         return retCol;  
     }  
     /** 
-     * 得到表中列字段长度最长的列字�? 
+     * 得到表中列字段长度最长的列字段 
      * @param tableName 表名 
-     * @return �?长的列字�? 
+     * @return 最长的列字段 
      */  
     public static int getMaxColumnLength(String tableName){  
         int maxLen = 0;  
@@ -62,9 +66,9 @@ public class FreemarkerUtil {
         return maxLen;  
     }  
     /** 
-     * 得到Java属�?�字段长度最长的字段长度 
+     * 得到Java属性字段长度最长的字段长度 
      * @param tableName 表名 
-     * @return Java属�?�最长字段长�? 
+     * @return Java属性最长字段长度 
      */  
     public static int getMaxJavaPropertyLength(String tableName){  
         int maxLen = 0;  
@@ -77,7 +81,7 @@ public class FreemarkerUtil {
         return maxLen;  
     }  
     /** 
-     * 获取表中列注�? 
+     * 获取表中列注释 
      * @param tableName 表名 
      * @return list 
      */  

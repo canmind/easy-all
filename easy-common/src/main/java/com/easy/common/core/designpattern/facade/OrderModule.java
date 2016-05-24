@@ -1,8 +1,8 @@
 package com.easy.common.core.designpattern.facade;
 
 public class OrderModule {
-    //示意方法
+    //绀烘剰鏂规硶
     public void order(){
-        System.out.println("下单");
+        System.out.println("涓嬪崟");
     }
 }

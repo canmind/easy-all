@@ -1,5 +1,7 @@
 package com.easy.common.core.designpattern.single;
 
+import com.o2o.framework.core.designpattern.single.Singleton;
+
 public class Singleton {
 
 	private static Singleton instance = null;
@@ -19,8 +21,9 @@ public class Singleton {
 		return instance;
 	}
 
-	/* Èç¹û¸Ã¶ÔÏó±»ÓÃÓÚĞòÁĞ»¯£¬¿ÉÒÔ±£Ö¤¶ÔÏóÔÚĞòÁĞ»¯Ç°ºó±£³ÖÒ»ÖÂ */
+	/* å¦‚æœè¯¥å¯¹è±¡è¢«ç”¨äºåºåˆ—åŒ–ï¼Œå¯ä»¥ä¿è¯å¯¹è±¡åœ¨åºåˆ—åŒ–å‰åä¿æŒä¸€è‡´ */
 	public Object readResolve() {
 		return instance;
 	}
 }
+

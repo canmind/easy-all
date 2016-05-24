@@ -51,7 +51,7 @@ public class ServiceContextInitInterceptor extends BaseInterceptor {
 
 			MdcHolder.init(ProductContextHolder.getProductContext());
 			if (logger.isDebugEnabled()) {
-				logger.debug("productContextÄ¿Ç°µÄÖµÊÇ"
+				logger.debug("productContextç›®å‰çš„å€¼æ˜¯"
 						+ ProductContextHolder.getProductContext());
 			}
 
@@ -111,7 +111,7 @@ public class ServiceContextInitInterceptor extends BaseInterceptor {
 				ProductContextHolder.setProductContext((ProductContext) gson
 						.fromJson(productContextStr, ProductContext.class));
 			} else if (logger.isDebugEnabled()) {
-				logger.debug("·Ö²¼Ê½ productContext´«µİÊ§°Ü");
+				logger.debug("åˆ†å¸ƒå¼ productContextä¼ é€’å¤±è´¥");
 			}
 		} else if (logger.isDebugEnabled()) {
 			logger.debug("web app invoke local service:"

@@ -1,8 +1,8 @@
 package com.easy.common.core.designpattern.facade;
 
 public class EatModule {
-    //Ê¾Òâ·½·¨
+    //ç¤ºæ„æ–¹æ³•
     public void eat(){
-        System.out.println("¿ª³Ô");
+        System.out.println("å¼€åƒ");
     }
 }

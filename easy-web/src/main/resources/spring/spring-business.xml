@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+       default-autowire="byName" default-lazy-init="false">
+
+
+    <context:component-scan base-package="com.o2o.business"/>
+    <context:property-placeholder location="classpath:/*.properties"/>
+	<!-- 拦截链路 -->
+	<bean id="serviceProxyCreator"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<list>
+				<value>interceptorChain</value>
+			</list>
+		</property>
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+				<value>*ServiceImpl</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="interceptorChain" class="com.o2o.framework.core.aop.InterceptorChain">
+		<property name="chains">
+			<list>
+				<ref bean="logInitInterceptor" />
+				<ref bean="serviceContextInitInterceptor" />
+
+			</list>
+		</property>
+	</bean>
+	<!-- 日志代理 -->
+	<bean id="logInitInterceptor"
+		class="com.o2o.framework.core.aop.AnnotatedLogInterceptor" />
+	<!-- 环境代理 -->
+	<bean id="serviceContextInitInterceptor"
+		class="com.o2o.framework.service.aop.ServiceContextInitInterceptor" />
+    <!-- 全局库配置  redis 节点-->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${jedis.global.maxIdle}"/>
+        <property name="testOnBorrow" value="${jedis.testOnBorrow}"/>
+        <property name="whenExhaustedAction" value="${jedis.whenExhaustedAction}"/>
+    </bean>
+
+    <bean id="redisClient" class="com.o2o.business.base.redis.RedisClient">
+        <constructor-arg index="0" ref="jedisPoolConfig"/>
+        <constructor-arg index="1" value="${jedis.global.url}"/>
+        <constructor-arg index="2" value="${jedis.global.port}"/>
+    </bean>
+
+
+    <import resource="classpath:spring-mybatis.xml"/>
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="o2o-provider-app"/>
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <dubbo:registry protocol="zookeeper" address="${dubbo.registry}"/>
+
+
+
+    <bean id="appService" class="com.o2o.business.service.impl.AppServiceImpl"/>
+    <dubbo:service interface="com.o2o.business.service.AppService" version="${dubbo.service.version}"
+                   timeout="${dubbo.service.timeout}"
+                   ref="appService"/>
+
+	<dubbo:protocol name="dubbo" port="${dubbo.service.port}"
+		server="netty" client="netty" serialization="kryo" charset="UTF-8"
+		threadpool="fixed" threads="200"  optimizer="com.o2o.dubbo.serialization.impl.SerializationOptimizerImpl" />
+	<!-- 用dubbo协议暴露服务
+	<dubbo:protocol name="dubbo" port="${dubbo.service.port}"
+		server="netty" client="netty" serialization="java" charset="UTF-8"
+		threadpool="fixed" threads="200" />-->
+	<!-- 声明需要暴露的服务接口 -->
+	<bean id="userService" class="com.o2o.business.service.impl.UserServiceImpl" />
+	<dubbo:service interface="com.o2o.business.service.UserService"
+		version="${dubbo.service.version}" timeout="${dubbo.service.timeout}"
+		ref="userService" protocol="dubbo"/>
+
+</beans>

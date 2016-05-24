@@ -12,11 +12,16 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
+import com.o2o.framework.core.runtime.MessageLevel;
+import com.o2o.framework.core.runtime.Profiler;
+import com.o2o.framework.core.runtime.Profiler.Entry;
+import com.o2o.framework.core.runtime.Profiler.Message;
+
 /**
  * @Title: Profiler.java
  * @Copyright: Copyright (c) 2014
- * @Description: ĞÔÄÜÕï¶Ï¹¤¾ß Ê¹ÓÃ³¡¾°£º1. ¶¨ÒåÔÚÍ¨ÓÃ¿ò¼ÜÖĞ£¬ÓÃÓÚ·ÖÎöÕûÌåÏµÍ³µÄÊµÊ±ĞÔÄÜ 2.ĞèÒª¶ÔÌØ¶¨¸öÒµÎñ¿é×öĞÔÄÜ·ÖÎöÊ±</br>
- * @Created on 2014-4-24 ÏÂÎç4:16:03
+ * @Description: æ€§èƒ½è¯Šæ–­å·¥å…· ä½¿ç”¨åœºæ™¯ï¼š1. å®šä¹‰åœ¨é€šç”¨æ¡†æ¶ä¸­ï¼Œç”¨äºåˆ†ææ•´ä½“ç³»ç»Ÿçš„å®æ—¶æ€§èƒ½ 2.éœ€è¦å¯¹ç‰¹å®šä¸ªä¸šåŠ¡å—åšæ€§èƒ½åˆ†ææ—¶</br>
+ * @Created on 2014-4-24 ä¸‹åˆ4:16:03
 
  */
 public final class Profiler {
@@ -24,7 +29,7 @@ public final class Profiler {
     private static final ThreadLocal<Entry> entryStack = new ThreadLocal<Entry>();
 
     private static ThreadLocal<Long> profilerContext = new ThreadLocal<Long>() {
-        // ³õÊ¼»¯Öµ
+        // åˆå§‹åŒ–å€¼
         public Long initialValue() {
             return 0L;
         }
@@ -97,7 +102,7 @@ public final class Profiler {
     }
 
     /**
-     * ÅĞ¶Ï±»¸¸¼¶·½·¨µ÷ÓÃ¹ı
+     * åˆ¤æ–­è¢«çˆ¶çº§æ–¹æ³•è°ƒç”¨è¿‡
      * 
      * @return
      */
@@ -271,9 +276,9 @@ public final class Profiler {
         }
 
         /**
-         * ÅĞ¶Ïµ±Ç°entryÊÇ·ñ½áÊø¡£
+         * åˆ¤æ–­å½“å‰entryæ˜¯å¦ç»“æŸã€‚
          * 
-         * @return Èç¹ûentryÒÑ¾­½áÊø£¬Ôò·µ»Ø<code>true</code>
+         * @return å¦‚æœentryå·²ç»ç»“æŸï¼Œåˆ™è¿”å›<code>true</code>
          */
         private boolean isReleased() {
             return endTime > 0;
@@ -321,15 +326,15 @@ public final class Profiler {
             double percent = getPecentage();
             double percentOfAll = getPecentageOfAll();
 
-            Object[] params = new Object[] { message, // {0} - entryĞÅÏ¢
-                                            new Long(startTime), // {1} - ÆğÊ¼Ê±¼ä
-                                            new Long(duration), // {2} - ³ÖĞø×ÜÊ±¼ä
+            Object[] params = new Object[] { message, // {0} - entryä¿¡æ¯
+                                            new Long(startTime), // {1} - èµ·å§‹æ—¶é—´
+                                            new Long(duration), // {2} - æŒç»­æ€»æ—¶é—´
                                             new Long(durationOfSelf), // {3} -
-                                                                      // ×ÔÉíÏûºÄµÄÊ±¼ä
+                                                                      // è‡ªèº«æ¶ˆè€—çš„æ—¶é—´
                                             new Double(percent), // {4} -
-                                                                 // ÔÚ¸¸entryÖĞËùÕ¼µÄÊ±¼ä±ÈÀı
+                                                                 // åœ¨çˆ¶entryä¸­æ‰€å çš„æ—¶é—´æ¯”ä¾‹
                                             new Double(percentOfAll) // {5} -
-                                                                     // ÔÚ×ÜÊ±¼äÖĞËù¾ÉµÄÊ±¼ä±ÈÀı
+                                                                     // åœ¨æ€»æ—¶é—´ä¸­æ‰€æ—§çš„æ—¶é—´æ¯”ä¾‹
             };
 
             StringBuffer pattern = new StringBuffer("{1,number} ");
@@ -366,11 +371,11 @@ public final class Profiler {
                 buffer.append('\n');
 
                 if (i == (subEntries.size() - 1)) {
-                    subEntry.toString(buffer, prefix2 + "`---", prefix2 + "    "); // ×îºóÒ»Ïî
+                    subEntry.toString(buffer, prefix2 + "`---", prefix2 + "    "); // æœ€åä¸€é¡¹
                 } else if (i == 0) {
-                    subEntry.toString(buffer, prefix2 + "+---", prefix2 + "|   "); // µÚÒ»Ïî
+                    subEntry.toString(buffer, prefix2 + "+---", prefix2 + "|   "); // ç¬¬ä¸€é¡¹
                 } else {
-                    subEntry.toString(buffer, prefix2 + "+---", prefix2 + "|   "); // ÖĞ¼äÏî
+                    subEntry.toString(buffer, prefix2 + "+---", prefix2 + "|   "); // ä¸­é—´é¡¹
                 }
             }
         }

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.o2o.framework.core.builder.freemarker.Constants;
 /*
  **
  */
@@ -17,7 +19,7 @@ public class DBUtil {
     private static ResultSet rs         = null;  
     private static DatabaseMetaData dmd = null;  
     /** 
-     * 链接数据�? 
+     * 链接数据库 
      * @return 
      */  
     public static Connection connection() {  
@@ -69,7 +71,7 @@ public class DBUtil {
         }  
     }  
     /** 
-     * 根据表名查询表中列注�? 
+     * 根据表名查询表中列注释 
      * @param tableName 表名 
      * @return List<String> 
      */  
@@ -109,7 +111,7 @@ public class DBUtil {
         return columnComments;  
     }  
     /** 
-     * 根据表名查询表中列类�? 
+     * 根据表名查询表中列类型 
      * @param tableName 表名 
      * @return List<String> 
      */  
@@ -129,7 +131,7 @@ public class DBUtil {
         return tableNames;  
     }  
     /** 
-     * 得到数据库中�?有表�? 
+     * 得到数据库中所有表名 
      * @return List<String> 
      */  
     public static List<String> getTableNames() {  

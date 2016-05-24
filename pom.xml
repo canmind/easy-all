@@ -1,47 +1,77 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.essy</groupId>
-	<artifactId>essy-parent</artifactId>
+	<groupId>com.easy</groupId>
+	<artifactId>easy-parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>${project.artifactId}</name>
 	<description>The parent project of easy</description>
-	<url>https://github.com/canmind</url>	
+	<url>https://github.com/canmind</url>
 	<modules>
 		<module>easy-common</module>
+		<module>easy-service</module>
+		<module>easy-web</module>
 	</modules>
 	<properties>
 		<!-- Common libs -->
 		<version.spring>3.2.9.RELEASE</version.spring>
-        <version.dubbo>2.8.4-SNAPSHOT</version.dubbo>
+		<version.dubbo>2.8.4-SNAPSHOT</version.dubbo>
 
-        <!-- Log libs -->
-        <version.slf4j>1.6.1</version.slf4j>
-        <version.log4j>1.2.16</version.log4j>
-        <version.logback>1.0.6</version.logback>
+		<!-- Log libs -->
+		<version.slf4j>1.6.1</version.slf4j>
+		<version.log4j>1.2.16</version.log4j>
+		<version.logback>1.0.6</version.logback>
 		<version.commons-lang>2.6</version.commons-lang>
-		<version.gson>2.3</version.gson>
 		<version.fastjson>1.2.1</version.fastjson>
 		<version.servlet-api>2.5</version.servlet-api>
 		<version.zookeeper>3.4.8</version.zookeeper>
-	    <version.poi>3.14-beta1</version.poi>
-	    <version.freemarker>2.3.23</version.freemarker>
-	    <version.mysql>5.1.38</version.mysql>
-	    <version.dom4j>1.6.1</version.dom4j>
-	    <version.bval>1.1.1</version.bval>
-	    <version.validation>1.1.0.Final</version.validation>
-	    <version.commons-lang3>3.4</version.commons-lang3>
-	    <version.commons-beanutils>1.9.2</version.commons-beanutils>		
-		
+		<version.poi>3.14-beta1</version.poi>
+		<version.freemarker>2.3.23</version.freemarker>
+		<version.mysql>5.1.38</version.mysql>
+		<version.dom4j>1.6.1</version.dom4j>
+		<version.bval>1.1.1</version.bval>
+		<version.validation>1.1.0.Final</version.validation>
+		<version.commons-lang3>3.4</version.commons-lang3>
+		<version.commons-beanutils>1.9.2</version.commons-beanutils>
+
+		<version.javassist>3.15.0-GA</version.javassist>
+		<version.netty>3.2.5.Final</version.netty>
+		<version.mina>1.1.7</version.mina>
+		<version.grizzly>2.1.4</version.grizzly>
+		<version.httpclient>4.2.1</version.httpclient>
+		<version.xstream>1.4.1</version.xstream>
+		<version.bsf>3.1</version.bsf>
+		<version.zkclient>0.1</version.zkclient>
+		<version.curator>2.5.0</version.curator>
+		<version.jedis>2.1.0</version.jedis>
+		<version.xmemcached>1.3.6</version.xmemcached>
+		<version.cxf>2.6.1</version.cxf>
+		<version.thrift>0.8.0</version.thrift>
+		<version.hessian>4.0.7</version.hessian>
+		<version.jetty>6.1.26</version.jetty>
+		<version.cache>0.4</version.cache>
+		<version.gson>2.1</version.gson>
+		<!-- Log libs -->
+		<version.slf4j>1.6.1</version.slf4j>
+		<version.log4j>1.2.16</version.log4j>
+		<version.slf4j-nop>1.7.7</version.slf4j-nop>
+		<version.logback>1.0.6</version.logback>
+		<version.mail>1.4.7</version.mail>
+		<version.druid>1.0.8</version.druid>
+		<version.fastjson>1.1.41</version.fastjson>
+		<version.mybatis>3.2.8</version.mybatis>
+		<version.mybatis-spring>1.2.2</version.mybatis-spring>
+		<version.mysql-connector-java>5.1.33</version.mysql-connector-java>
+
 		<version.junit>3.8.1</version.junit>
 
-		
+
 		<!-- Build args -->
 		<skip_maven_deploy>false</skip_maven_deploy>
 		<updateReleaseInfo>true</updateReleaseInfo>
 		<project.build.sourceEncoding>${file_encoding}</project.build.sourceEncoding>
-		
+
 		<!-- for maven compiler plugin -->
 		<maven_compiler_plugin_version>2.3.2</maven_compiler_plugin_version>
 		<java_source_version>1.6</java_source_version>
@@ -53,7 +83,7 @@
 		<maven_war_plugin_version>2.1.1</maven_war_plugin_version>
 		<maven_install_plugin_version>2.3.1</maven_install_plugin_version>
 		<maven_deploy_plugin_version>2.7</maven_deploy_plugin_version>
-        <maven_surefire_plugin_version>2.17</maven_surefire_plugin_version>
+		<maven_surefire_plugin_version>2.17</maven_surefire_plugin_version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -63,14 +93,39 @@
 				<artifactId>spring-aop</artifactId>
 				<version>${version.spring}</version>
 			</dependency>
-			 <dependency>
+			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
 				<version>${version.spring}</version>
 			</dependency>
-			 <dependency>
+			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
 				<version>${version.spring}</version>
 			</dependency>
 			<dependency>
@@ -95,22 +150,17 @@
 				<version>${version.commons-lang}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.google.code.gson</groupId>
-				<artifactId>gson</artifactId>
-				<version>${version.gson}</version>
-			</dependency>
-			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
 				<version>${version.fastjson}</version>
 			</dependency>
-			 <dependency>
+			<dependency>
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
 				<scope>provided</scope>
 				<version>${version.servlet-api}</version>
-			 </dependency>
-			 <dependency>
+			</dependency>
+			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>dubbo</artifactId>
 				<version>${version.dubbo}</version>
@@ -141,41 +191,41 @@
 				<artifactId>poi-ooxml</artifactId>
 				<version>${version.poi}</version>
 			</dependency>
-			<dependency>  
-				<groupId>org.freemarker</groupId>  
-				<artifactId>freemarker</artifactId>  
-				<version>${version.freemarker}</version>  
-			</dependency>
-			<dependency>  
-				<groupId>mysql</groupId>  
-				<artifactId>mysql-connector-java</artifactId>  
-				<version>${version.mysql}</version>  
-				<scope>provided</scope>  
-			</dependency>
-			<dependency>  
-				<groupId>dom4j</groupId>  
-				<artifactId>dom4j</artifactId>  
-				<version>${version.dom4j}</version>  
-			</dependency>
-			<dependency>  
-				<groupId>dom4j</groupId>  
-				<artifactId>dom4j</artifactId>  
-				<version>${version.dom4j}</version>  
+			<dependency>
+				<groupId>org.freemarker</groupId>
+				<artifactId>freemarker</artifactId>
+				<version>${version.freemarker}</version>
 			</dependency>
 			<dependency>
-			  <groupId>org.apache.bval</groupId>
-			  <artifactId>org.apache.bval.bundle</artifactId>
-			  <version>${version.bval}</version>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${version.mysql}</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
-			  <groupId>org.apache.bval</groupId>
-			  <artifactId>org.apache.bval.bundle</artifactId>
-			  <version>${version.bval}</version>
+				<groupId>dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>${version.dom4j}</version>
 			</dependency>
 			<dependency>
-			  <groupId>javax.validation</groupId>
-			  <artifactId>validation-api</artifactId>
-			  <version>${version.validation}</version>
+				<groupId>dom4j</groupId>
+				<artifactId>dom4j</artifactId>
+				<version>${version.dom4j}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.bval</groupId>
+				<artifactId>org.apache.bval.bundle</artifactId>
+				<version>${version.bval}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.bval</groupId>
+				<artifactId>org.apache.bval.bundle</artifactId>
+				<version>${version.bval}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${version.validation}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -183,9 +233,168 @@
 				<version>${version.commons-lang3}</version>
 			</dependency>
 			<dependency>
-			   <groupId>commons-beanutils</groupId>
-			   <artifactId>commons-beanutils</artifactId>
-			   <version>${version.commons-beanutils}</version>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>${version.commons-beanutils}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${version.spring}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${version.spring}</version>
+				<scope>test</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>${version.javassist}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.mina</groupId>
+				<artifactId>mina-core</artifactId>
+				<version>${version.mina}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.glassfish.grizzly</groupId>
+				<artifactId>grizzly-core</artifactId>
+				<version>${version.grizzly}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpclient</artifactId>
+				<version>${version.httpclient}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${version.fastjson}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.thoughtworks.xstream</groupId>
+				<artifactId>xstream</artifactId>
+				<version>${version.xstream}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.bsf</groupId>
+				<artifactId>bsf-api</artifactId>
+				<version>${version.bsf}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.zookeeper</groupId>
+				<artifactId>zookeeper</artifactId>
+				<version>${version.zookeeper}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.sgroschupf</groupId>
+				<artifactId>zkclient</artifactId>
+				<version>${version.zkclient}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.curator</groupId>
+				<artifactId>curator-framework</artifactId>
+				<version>${version.curator}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.googlecode.xmemcached</groupId>
+				<artifactId>xmemcached</artifactId>
+				<version>${version.xmemcached}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-frontend-simple</artifactId>
+				<version>${version.cxf}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-rt-transports-http</artifactId>
+				<version>${version.cxf}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.thrift</groupId>
+				<artifactId>libthrift</artifactId>
+				<version>${version.thrift}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.caucho</groupId>
+				<artifactId>hessian</artifactId>
+				<version>${version.hessian}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty</artifactId>
+				<exclusions>
+					<exclusion>
+						<groupId>org.mortbay.jetty</groupId>
+						<artifactId>servlet-api</artifactId>
+					</exclusion>
+				</exclusions>
+				<version>${version.jetty}</version>
+			</dependency>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${version.log4j}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${version.slf4j}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>${version.mail}</version>
+			</dependency>
+			<dependency>
+				<groupId>redis.clients</groupId>
+				<artifactId>jedis</artifactId>
+				<version>${version.jedis}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${version.validation}</version>
+			</dependency>
+			<dependency>
+				<groupId>javax.cache</groupId>
+				<artifactId>cache-api</artifactId>
+				<version>${version.cache}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>${version.gson}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -195,6 +404,7 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -214,7 +424,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven_surefire_plugin_version}</version>
+				<version>${maven_surefire_plugin_version}</version>
 				<configuration>
 					<useSystemClassLoader>true</useSystemClassLoader>
 					<forkMode>once</forkMode>
@@ -289,8 +499,20 @@
 					<skip>${skip_maven_deploy}</skip>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
-
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -323,7 +545,7 @@
 						<encoding>${file_encoding}</encoding>
 					</configuration>
 				</plugin>
-				<!--This plugin's configuration is used to store Eclipse m2e settings
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
@@ -359,8 +581,6 @@
 		</pluginManagement>
 
 	</build>
-
-	
 	<developers>
 		<developer>
 			<name>tim</name>
@@ -371,6 +591,6 @@
 			</roles>
 			<timezone>+8</timezone>
 		</developer>
-		
+
 	</developers>
 </project>
